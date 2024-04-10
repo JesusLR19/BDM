@@ -1,33 +1,32 @@
 package datos;
-import modelo.razas;
+import modelo.eventos;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-public class RazasDAO {
-    public static final String insertSQL = "INSERT INTO RAZAS(idpersonaje,nombre,lugarorigen,descripcion,idraza) VALUES (?,?,?,?,?)";
-    public static final String updateSQL = "UPDATE RAZAS SET nombre=?, lugarorigen=?, descripcion=?, idraza=? WHERE idpersona=?";
+import java.util.ArrayList;
+public class EventosDAO {
+    public static final String inserSQL = "INSERT INTO EVENTOS(nombre,descripcion,fecha,idlugar) VALUES (?,?,?,?)";
+    public static final String updateSQL = "UPDATE EVENTOS SET descripcion=?,fecha=?,idlugar=? WHERE nombre=?";
 
-    public List<razas> Listar(){
+    public List<eventos> Listar(){
         Connection conn = null;
         PreparedStatement state = null;
         ResultSet result = null;
 
-        List<razas> raza = new ArrayList<>();
+        List<eventos> evento = new ArrayList<>();
 
         try{
             conn = Conexion.getConnection();
-            state = conn.prepareStatement("SELECT * FROM RAZAS");
+            state = conn.prepareStatement("SELECT * FROM EVENTOS");
             result = state.executeQuery();
             while (result.next()){
-                int idraza = result.getInt("idraza");
                 String nombre = result.getString("nombre");
                 String descripcion = result.getString("descripcion");
+                String fecha = result.getString("fecha");
+                int idlugar = result.getInt("idlugar");
 
-                razas Razas = new razas(idraza,nombre,descripcion);
-                raza.add(Razas);
-
+                eventos event = new eventos(nombre,descripcion,fecha,idlugar);
+                evento.add(event);
             }
-
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -35,23 +34,21 @@ public class RazasDAO {
             Conexion.close(state);
             Conexion.close(conn);
         }
-        return raza;
+        return evento;
     }
-
-    public void agregarRaza(razas raz){
+    public void AgregarEvento(eventos evento1){
         Connection conn = null;
         PreparedStatement state = null;
         int registros = 0;
 
-        try {
+        try{
             conn = Conexion.getConnection();
             state = conn.prepareStatement(updateSQL);
 
-            state.setInt(1,raz.getid_Razas());
-            state.setString(2,raz.getNombre_Razas());
-            state.setString(3, raz.getDescripcion_Razas());
-
-            state.executeUpdate();
+            state.setString(1,evento1.getNombre());
+            state.setString(2,evento1.getDescription());
+            state.setString(3,evento1.getFecha());
+            state.setInt(4,evento1.getIdlugar());
 
         }catch (Exception e){
             e.printStackTrace();
@@ -61,7 +58,7 @@ public class RazasDAO {
         }
     }
 
-    public int modificarRazas(razas raz1){
+    public int modificarEventos(eventos eventos2){
         Connection conn = null;
         PreparedStatement state = null;
         int registros = 0;
@@ -70,11 +67,10 @@ public class RazasDAO {
             conn = Conexion.getConnection();
             state = conn.prepareStatement(updateSQL);
 
-            state.setString(1,raz1.getNombre_Razas());
-            state.setString(2, raz1.getDescripcion_Razas());
-
-            registros = state.executeUpdate();
-            if(registros > 0 ) System.out.println("Tu registro de razas ha sido actualizado");
+            state.setString(1,eventos2.getNombre());
+            state.setString(2, eventos2.getDescription());
+            state.setString(3,eventos2.getFecha());
+            state.setInt(4,eventos2.getIdlugar());
 
         }catch (Exception e){
             e.printStackTrace();
@@ -84,4 +80,5 @@ public class RazasDAO {
         }
         return registros;
     }
+
 }

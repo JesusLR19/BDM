@@ -1,7 +1,6 @@
-package Conexion;
+package datos;
 import java.sql.*;
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 public class Conexion {

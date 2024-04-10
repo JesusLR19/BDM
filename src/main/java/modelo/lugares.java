@@ -13,6 +13,13 @@ public class lugares implements Serializable {
 
     }
 
+    public lugares(int id, String nombre, String description, String region) {
+        this.id = id;
+        this.nombre = nombre;
+        this.description = description;
+        this.region = region;
+    }
+
     public int getid(){
         return id;
     }

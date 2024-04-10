@@ -1,4 +1,6 @@
-package Conexion;
+package datos;
+import datos.Conexion;
+
 import java.sql.*;
 public class ConexionMain {
     //CLASE PARA PROBAR LA CONEXION A LA BASE DE DATOS

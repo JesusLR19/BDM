@@ -13,7 +13,12 @@ public class personajes implements Serializable {
     public personajes() {
 
     }
-
+    public personajes(int id,String nombre, String lugarOrigen, String description){
+        this.id = id;
+        this.nombre = nombre;
+        this.lugarOrigen = lugarOrigen;
+        this.description = description;
+    }
     public int getid(){
         return id;
     }
