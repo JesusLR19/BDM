@@ -1,0 +1,1 @@
+INSERT INTO lugares (nombre,descripcion,region) VALUES ('Prueba','Prueba','Prueba');

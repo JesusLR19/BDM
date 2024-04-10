@@ -10,7 +10,6 @@ public class ConexionMain {
 
             String sql = "SELECT * FROM razas";
             PreparedStatement ps = conn.prepareStatement(sql);
-            //ps.setString(1,"L%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 int idraza = rs.getInt("idraza");
